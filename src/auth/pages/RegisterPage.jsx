@@ -2,11 +2,12 @@ import { Link as RouterLink } from 'react-router-dom'
 import { Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks';
+import { useState } from 'react';
 
 const formData = {
-  email: 'juan@google.com',
-  password: '123456',
-  displayName: 'Juan'
+  email: '',
+  password: '',
+  displayName: ''
 }
 
 const formValidations = {
@@ -16,6 +17,7 @@ const formValidations = {
 };
 
 export const RegisterPage = () => {
+  const [formSubmitted, setFormSubmitted] = useState(false)
   const { 
     formState, displayName, email, password, onInputChange,
     isFormValid, displayNameValid, emailValid, passwordValid,
@@ -23,7 +25,8 @@ export const RegisterPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
+    if(!isFormValid) return;
+    setFormSubmitted(true);
   }
 
   return (
@@ -40,8 +43,8 @@ export const RegisterPage = () => {
               name='displayName'
               value={displayName}
               onChange={onInputChange}
-              error={!displayNameValid}
-              helperText={ displayNameValid ? "El nombre es requerido" : ''}
+              error={ !!displayNameValid && formSubmitted}
+              helperText={ displayNameValid }
             />
           </Grid>
 
@@ -54,6 +57,8 @@ export const RegisterPage = () => {
               name='email'
               value={email}
               onChange={onInputChange}
+              error={!!emailValid && formSubmitted}
+              helperText={ emailValid }
             />
           </Grid>
 
@@ -66,6 +71,8 @@ export const RegisterPage = () => {
               name='password'
               value={password}
               onChange={onInputChange}
+              error={!!passwordValid && formSubmitted}
+              helperText={ passwordValid }
             />
           </Grid>
 
@@ -76,6 +83,7 @@ export const RegisterPage = () => {
                 variant="contained" 
                 fullWidth
                 type='submit'
+                disabled={!isFormValid}
               >
                 Crear Cuenta
               </Button>
