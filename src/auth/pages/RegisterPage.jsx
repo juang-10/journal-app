@@ -4,7 +4,7 @@ import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { startEmailPasswordRegister } from '../../store/auth';
+import { startCreatingUserWithEmailPassword } from '../../store/auth';
 
 const formData = {
   email: '',
@@ -30,7 +30,7 @@ export const RegisterPage = () => {
     e.preventDefault();
     setFormSubmitted(true);
     if(!isFormValid) return;
-    dispatch( startEmailPasswordRegister(formState) );
+    dispatch( startCreatingUserWithEmailPassword(formState) );
   }
 
   return (
