@@ -21,9 +21,9 @@ export const JournalPage = () => {
       {
         // eslint-disable-next-line no-extra-boolean-cast
         (!!active) ? (
-          <NothingSelectedView />
-        ) : (
           <NoteView/>
+        ) : (
+          <NothingSelectedView />
         )
       }
 
